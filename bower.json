@@ -1,17 +1,29 @@
 {
-    "name": "angular-file-upload",
-    "version": "1.1.5",
-    "main": "angular-file-upload.js",
-    "homepage": "https://github.com/nervgh/angular-file-upload",
-    "ignore": ["examples"],
-    "dependencies": {
-        "angular": "~1.2.11",
-        "es5-shim": ">=3.4.0"
-    },
-    "keywords": [
-        "angular",
-        "file",
-        "upload",
-        "module"
-    ]
+  "name": "angular-file-upload-s3",
+  "version": "1.1.7",
+  "main": "angular-file-upload.js",
+  "homepage": "https://github.com/karan-kapoor90/angular-file-upload-s3",
+  "ignore": [
+    "examples",
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "~1.2.11",
+    "es5-shim": ">=3.4.0"
+  },
+  "keywords": [
+    "angular",
+    "file",
+    "upload",
+    "module"
+  ],
+  "authors": [
+    "Karan Kapoor <karan.kapoor.work@gmail.com>"
+  ],
+  "description": "This is a refractored version of nervgh/angular-file-upload with the extended capability to upload to amazon s3. This was modified and distributed by ooquiDev on github.",
+  "license": "MIT"
 }

@@ -219,6 +219,27 @@ module
                     that._onErrorItem(item, response, status, headers);
                 }
             };
+            
+            /**
+             *Delete an item from s3
+             *@param {FileItem|Number} value
+             */
+             FileUploader.prototype.deleteFromS3 = function(filename){
+                 if (angular.isUndefined(this.s3)) this.initializeS3();
+                 var params = {
+                   Bucket:this.s3Options.bucket,
+                   Delete :{
+                       Objects:[{
+                           Key:this.s3Options.folder + filename
+                       }]
+                   }
+                 };
+                 this.s3.deleteObjects(params,function(err,data){
+                    if (err) console.log(err);
+                    return;
+                 });
+             };
+             
             /**
              * Load S3 library (AWS-SDK)
              * @param {callback|function} callback
@@ -428,6 +449,7 @@ module
              * Callback
              */
             FileUploader.prototype.onCompleteAll = function() {};
+            // FileUploader.prototype.deleteFromS3 = function() {};
             /**********************
              * PRIVATE
              **********************/
