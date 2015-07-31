@@ -222,7 +222,7 @@ module
             
             /**
              *Delete an item from s3
-             *@param {FileItem|Number} value
+             *@param {filename|String} value
              */
              FileUploader.prototype.deleteFromS3 = function(filename){
                  if (angular.isUndefined(this.s3)) this.initializeS3();
@@ -238,6 +238,35 @@ module
                     if (err) console.log(err);
                     return;
                  });
+             };
+             /**
+             *Delete a folder from s3
+             *@param {dirName|String} value
+             */
+             FileUploader.prototype.deleteDirectoryS3 = function(dirName){
+                 if (angular.isUndefined(this.s3)) this.initializeS3();
+                 var locals3 = this.s3;
+                 var pluckedKeys = [];
+                 var params = {
+                       Bucket:this.s3Options.bucket,
+                      Delete :{
+                          Objects:[{
+                              Key:'/'
+                          }]
+                      }
+                    };
+                 this.s3PrefixInstance = new AWS.S3({ params: { Bucket: this.s3Options.bucket,Prefix:dirName }});
+                 this.s3PrefixInstance.listObjects(function(error,content){
+                     var keyList = content.Contents.map(function(item){
+                        pluckedKeys.push({Key:item.Key}); 
+                     });
+                     params.Delete.Objects = pluckedKeys;
+                     locals3.deleteObjects(params,function(err,data){
+                            if (err) console.log(err);
+                            return;
+                    });
+                 });
+                 
              };
              
             /**
