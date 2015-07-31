@@ -257,14 +257,16 @@ module
                     };
                  this.s3PrefixInstance = new AWS.S3({ params: { Bucket: this.s3Options.bucket,Prefix:dirName }});
                  this.s3PrefixInstance.listObjects(function(error,content){
-                     var keyList = content.Contents.map(function(item){
-                        pluckedKeys.push({Key:item.Key}); 
-                     });
-                     params.Delete.Objects = pluckedKeys;
-                     locals3.deleteObjects(params,function(err,data){
-                            if (err) console.log(err);
-                            return;
-                    });
+                     if (content.Contents.length>0) {
+                        var keyList = content.Contents.map(function(item){
+                            pluckedKeys.push({Key:item.Key}); 
+                         });
+                         params.Delete.Objects = pluckedKeys;
+                         locals3.deleteObjects(params,function(err,data){
+                                if (err) console.log(err);
+                                return;
+                        }); 
+                     }
                  });
                  
              };
